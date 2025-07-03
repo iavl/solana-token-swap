@@ -7,7 +7,7 @@ echo "Deploying to $network"
 # prepare deployer keypair
 deployerKeypair=./tests/keys/deployer.json
 # generate a new program id for the first time
-if [ ! -f $deployerKeypair ]; then
+if [ ! -f ./tests/keys/test-program-keypair.json ]; then
     programKeypair=$(solana-keygen grind --starts-with TT:1 | grep 'Wrote keypair' | awk '{print $4}')
     mv $programKeypair ./tests/keys/test-program-keypair.json
 fi
@@ -30,8 +30,8 @@ fi
 yarn build
 
 # deploy program
-anchor deploy --program-name smart_account_program --provider.cluster $network
+anchor deploy --program-name solana-token-swap --provider.cluster $network
 
 # get program info
-programId=$(solana address -k target/deploy/smart_account_program-keypair.json)
+programId=$(solana address -k target/deploy/solana-token-swap-keypair.json)
 solana program show $programId

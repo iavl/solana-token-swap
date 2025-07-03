@@ -3,8 +3,11 @@
   "scripts": {
     "lint": "npx prettier --write \"*/**/*{.ts,.js}\" && cargo fmt",
     "fmt": "cargo fmt",
+    "prebuild": "yarn copy-test-keys",
     "build": "anchor build",
+    "pretest": "yarn copy-test-keys",
     "test": "anchor build  && anchor test",
+    "copy-test-keys": "mkdir -p target/deploy && cp ./tests/keys/test-program-keypair.json ./target/deploy/solana_token_swap-keypair.json&& yarn sync-keys",
     "sync-keys": "anchor keys sync",
     "clean": "anchor clean"
   },
